@@ -1,2 +1,30 @@
-<h1>Admin::Dashboard#show</h1>
-<p>Find me in app/views/admin/dashboard/show.html.erb</p>
+<header class="page-header">
+  <h1>Admin &raquo; Dashboard</h1>
+</header>
+
+<h2>Statistics</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Number in database</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Products</td>
+      <td><%= @count_products %></td>
+    </tr>
+    <tr>
+      <td>Categories</td>
+      <td><%= @count_categories %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="alert alert-success" role="alert">
+  <%= link_to "Click here to visit the product admin page", "/admin/products", class: "alert-link" %> 
+  (password required) or 
+  <%= link_to "click here to return to the home page", root_path, class: "alert-link" %>.
+</div>
