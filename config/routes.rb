@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get 'categories/index'
   end
+
   get '/about', to: 'about#index'
   root to: 'products#index'
 
@@ -21,6 +22,18 @@ Rails.application.routes.draw do
     resources :products, except: [:edit, :update, :show]
     resources :categories, except: [:edit, :update, :show, :destroy]
   end
+
+  # The next section is for User Authentication from the tutorial at https://gist.github.com/thebucknerlife/10090014
+  # these routes are for showing users a login form, logging them in, and logging them out.
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
+  # These routes will be for signup. The first renders a form in the browse, the second will 
+  # receive the form and create a user in our database using the data given to us by the user.
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
+  # --------------------------------------------------------------- end of tutorial section
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
