@@ -41,7 +41,46 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       subject.password_confirmation = 'password'
       subject.save
-      expect(subject.errors.full_messages).to include("Email can't be blank", "Email is not an email")
+      expect(subject.errors.full_messages).to include("Email can't be blank")
+    end
+
+    it 'should generate an error if the email is not unique' do
+      user1 = User.new
+      user1.first_name = 'Robert'
+      user1.last_name = 'Plant'
+      user1.email = 'robert.plant@trees.com'
+      user1.password = 'password'
+      user1.password_confirmation = 'password'
+      expect { user1.save! }.not_to raise_error
+
+      user2 = User.new
+      user2.first_name = 'Bob'
+      user2.last_name = 'Planter'
+      user2.email = 'ROBERT.plant@trees.com'
+      user2.password = 'password'
+      user2.password_confirmation = 'password'
+      user2.save
+      expect(user2.errors.full_messages).to include("Email has already been taken")
+    end
+
+    it "should generate an error if the email is not an email address" do
+      subject.first_name = 'Robert'
+      subject.last_name =  'Plant'
+      subject.email = 'robert.plantstrees.com'
+      subject.password = 'password'
+      subject.password_confirmation = 'password'
+      subject.save
+      expect(subject.errors.full_messages).to include("Email is not an email")
+    end
+
+    it "should generate an error if the password is empty" do
+      subject.first_name = 'Robert'
+      subject.last_name = 'Plant'
+      subject.email = 'robert.plant@trees.com'
+      subject.password = nil
+      subject.password_confirmation = 'password'
+      subject.save
+      expect(subject.errors.full_messages).to include("Password can't be blank")
     end
 
     it "should generate an error if the password confirmation is empty" do
@@ -52,6 +91,26 @@ RSpec.describe User, type: :model do
       subject.password_confirmation = nil
       subject.save
       expect(subject.errors.full_messages).to include("Password confirmation can't be blank")
+    end
+
+    it "should generate an error if the password and password confirmation do not match" do
+      subject.first_name = 'Robert'
+      subject.last_name = 'Plant'
+      subject.email = 'robert.plant@trees.com'
+      subject.password = 'password'
+      subject.password_confirmation = 'wordpass'
+      subject.save
+      expect(subject.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+
+    it "should generate an error if the password is less than 8 characters" do
+      subject.first_name = 'Robert'
+      subject.last_name = 'Plant'
+      subject.email = 'robert.plant@trees.com'
+      subject.password = 'paSeven'
+      subject.password_confirmation = 'paSeven'
+      subject.save
+      expect(subject.errors.full_messages).to include("Password must contain 8 or more characters")
     end
 
   end
