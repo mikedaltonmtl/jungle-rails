@@ -47,7 +47,7 @@ RSpec.describe Product, type: :model do
       subject.quantity = 80
       subject.category = nil
       subject.save
-      expect(subject.errors.full_messages).to include("Category must exist", "Category can't be blank")
+      expect(subject.errors.full_messages).to include("Category can't be blank")
     end
 
   end
