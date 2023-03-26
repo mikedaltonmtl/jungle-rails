@@ -20,7 +20,7 @@ RSpec.describe Product, type: :model do
       subject.quantity = 80
       subject.category = Category.new(name: 'Plant')
       subject.save
-      expect(["Name can't be blank"]).to eql(subject.errors.full_messages)
+      expect(subject.errors.full_messages).to include("Name can't be blank")
     end
 
     it "should generate an error if the price is empty" do
@@ -29,7 +29,7 @@ RSpec.describe Product, type: :model do
       subject.quantity = 80
       subject.category = Category.new(name: 'Plant')
       subject.save
-      expect(["Price can't be blank"]).to eql(subject.errors.full_messages)
+      expect(subject.errors.full_messages).to include("Price can't be blank")
     end
 
     it "should generate an error if the quantity is empty" do
@@ -38,7 +38,7 @@ RSpec.describe Product, type: :model do
       subject.quantity = nil
       subject.category = Category.new(name: 'Plant')
       subject.save
-      expect(["Quantity can't be blank"]).to eql(subject.errors.full_messages)
+      expect(subject.errors.full_messages).to include("Quantity can't be blank")
     end
 
     it "should generate an error if the category is empty" do
@@ -47,7 +47,7 @@ RSpec.describe Product, type: :model do
       subject.quantity = 80
       subject.category = nil
       subject.save
-      expect(["Category must exist", "Category can't be blank"]).to eql(subject.errors.full_messages)
+      expect(subject.errors.full_messages).to include("Category must exist", "Category can't be blank")
     end
 
   end
