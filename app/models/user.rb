@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true
 
 
-  def authenticate_with_credentials(email, password)
+  def self.authenticate_with_credentials(email, password)
     user = User.find_by_email(email.strip.downcase)
     # If the user exists AND the password entered is correct return an instance of the user, else return nil
     user && user.authenticate(password) ? user : nil

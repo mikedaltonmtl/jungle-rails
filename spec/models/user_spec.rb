@@ -122,7 +122,7 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       subject.password_confirmation = 'password'
       subject.save
-      expect(subject.authenticate_with_credentials(subject.email, subject.password)).to be_an_instance_of described_class
+      expect(User.authenticate_with_credentials(subject.email, subject.password)).to be_an_instance_of described_class
     end
 
     it 'should return nil if the email is incorrect' do
@@ -132,7 +132,7 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       subject.password_confirmation = 'password'
       subject.save
-      expect(subject.authenticate_with_credentials('fred.shrub@weeds.com', subject.password)).to be_nil
+      expect(User.authenticate_with_credentials('fred.shrub@weeds.com', subject.password)).to be_nil
     end
 
     it 'should trim the email before authenticating it' do
@@ -142,7 +142,7 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       subject.password_confirmation = 'password'
       subject.save
-      expect(subject.authenticate_with_credentials('  robert.plant@trees.com  ', subject.password)).to be_an_instance_of described_class
+      expect(User.authenticate_with_credentials('  robert.plant@trees.com  ', subject.password)).to be_an_instance_of described_class
     end
 
     it 'should authenticate the email without being case-sensitive' do
@@ -152,7 +152,7 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       subject.password_confirmation = 'password'
       subject.save
-      expect(subject.authenticate_with_credentials('roBert.pLant@trEes.coM', subject.password)).to be_an_instance_of described_class
+      expect(User.authenticate_with_credentials('roBert.pLant@trEes.coM', subject.password)).to be_an_instance_of described_class
     end
 
     it 'should return nil if the password is incorrect' do
@@ -162,7 +162,7 @@ RSpec.describe User, type: :model do
       subject.password = 'password'
       subject.password_confirmation = 'password'
       subject.save
-      expect(subject.authenticate_with_credentials('robert.plant@trees.com', 'wordpass')).to be_nil
+      expect(User.authenticate_with_credentials('robert.plant@trees.com', 'wordpass')).to be_nil
     end
 
   end
