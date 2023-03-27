@@ -4,8 +4,6 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   describe 'Validations' do
 
-    subject { described_class.new }
-
     it 'should save without error when all fields are set' do
       subject.name = "Robert"
       subject.price = 100
