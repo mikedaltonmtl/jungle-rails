@@ -2,7 +2,7 @@
 
 describe('jungle rails app', () => {
   beforeEach(() => {
-    cy.visit('http://0.0.0.0:3000');
+    cy.visit('/');
   });
 
   it("There is at least one product on the page", () => {
